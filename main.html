@@ -7,108 +7,167 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
         body {
-            background-color: #1a1a1a;
+            background: linear-gradient(to bottom right, #ffccff, #ff99cc);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             overflow: hidden;
             font-family: 'Dancing Script', cursive;
-            position: relative;
-            color: #ff0000;
+            color: white;
             margin: 0;
+            position: relative;
         }
-        .intro {
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .start-screen, .intro, .main-content, .rizz-lines {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, #2b2b2b, #1a1a1a);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2.5em;
             text-align: center;
-            animation: fadeOut 3s ease-in-out forwards;
-            animation-delay: 3s;
+            flex-direction: column;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
         }
-        @keyframes fadeOut {
-            to { opacity: 0; visibility: hidden; }
+        .start-screen {
+            opacity: 1;
         }
-        .main-content {
-            opacity: 0;
-            animation: fadeIn 4s ease-in-out forwards;
-            animation-delay: 4s;
+        .start-button {
+            font-size: 1.2em;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #ff66b2;
+            color: white;
+            box-shadow: 0 0 15px #ff66b2;
+            transition: all 0.3s ease;
+            animation: glow 1.5s ease-in-out infinite alternate;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .container {
-            text-align: center;
-            z-index: 9999;
-            position: relative;
-        }
-        h1 {
-            font-size: 4em;
-            color: #ff0080;
-            text-shadow: 0 0 15px #ff66b2, 0 0 25px #ff66b2;
-            animation: glow 1.5s infinite alternate;
+        .start-button:hover {
+            box-shadow: 0 0 25px #ff3385;
         }
         @keyframes glow {
-            from { text-shadow: 0 0 15px #ff66b2, 0 0 25px #ff66b2; }
-            to { text-shadow: 0 0 25px #ff3385, 0 0 35px #ff3385; }
+            0% {
+                box-shadow: 0 0 20px #ff66b2, 0 0 30px #ff66b2, 0 0 40px #ff66b2;
+            }
+            100% {
+                box-shadow: 0 0 30px #ff3385, 0 0 40px #ff3385, 0 0 50px #ff3385;
+            }
+        }
+        .intro, .main-content, .rizz-lines {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .rizz-lines p {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ff66b2;
+            text-shadow: 0 0 20px #ff66b2;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            margin: 10px 0;
+            animation: textGlow 1.5s ease-in-out infinite alternate;
+            position: absolute;
+        }
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 20px #ff66b2, 0 0 30px #ff66b2, 0 0 40px #ff66b2;
+            }
+            100% {
+                text-shadow: 0 0 30px #ff3385, 0 0 40px #ff3385, 0 0 50px #ff3385;
+            }
+        }
+        .intro p {
+            font-size: 4em;
+            font-weight: bold;
+            color: #ff66b2;
+            text-shadow: 0 0 20px #ff66b2;
+            animation: textGlow 1.5s ease-in-out infinite alternate;
+        }
+        h1 {
+            font-size: 3em;
+            color: #ff66b2;
+            text-shadow: 0 0 15px #ff66b2;
+            animation: textGlow 1.5s ease-in-out infinite alternate;
         }
         .buttons {
-            margin-top: 50px;
-            position: relative;
+            margin-top: 20px;
         }
         .button {
-            font-size: 1.8em;
-            padding: 15px 40px;
-            margin: 30px;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            margin: 15px;
             border: none;
             border-radius: 15px;
             cursor: pointer;
-            box-shadow: 0 0 20px #ff0000;
-            transition: transform 0.2s, box-shadow 0.2s;
-            z-index: 20;
+            transition: all 0.2s ease;
+            animation: glowButton 1.5s ease-in-out infinite alternate;
         }
         .yes {
             background-color: #33ff77;
             color: white;
-            box-shadow: 0 0 20px #33ff77;
+            box-shadow: 0 0 15px #33ff77;
+        }
+        .yes:hover {
+            box-shadow: 0 0 25px #33ff77;
+            animation: none;
         }
         .no {
             background-color: #ff3333;
             color: white;
             position: absolute;
-            box-shadow: 0 0 20px #ff3333;
-            transition: box-shadow 0.1s ease-out;
-        }
-        .button:hover {
-            transform: scale(1.1);
-        }
-        .yes:hover {
-            box-shadow: 0 0 30px #33ff77;
+            box-shadow: 0 0 15px #ff3333;
+            transition: all 0.1s ease;
         }
         .no:hover {
-            box-shadow: 0 0 30px #ff3333;
+            box-shadow: 0 0 25px #ff3333;
+            animation: none;
         }
-        #particles-js {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
+        @keyframes glowButton {
+            0% {
+                box-shadow: 0 0 20px #33ff77, 0 0 30px #33ff77, 0 0 40px #33ff77;
+            }
+            100% {
+                box-shadow: 0 0 30px #ff3385, 0 0 40px #ff3385, 0 0 50px #ff3385;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="intro">Happy Valentine's Day! ❤️</div>
+    <div id="particles-js"></div>
 
-    <div class="main-content">
+    <div class="start-screen">
+        <p>Click here to start</p>
+        <button class="start-button" onclick="startIntro()">Click Here</button>
+    </div>
+
+    <div class="rizz-lines">
+        <p id="line1"></p>
+        <p id="line2"></p>
+        <p id="line3"></p>
+        <p id="line4"></p>
+        <p id="line5"></p>
+    </div>
+
+    <div class="intro overlay">
+        <p id="introText">Happy Valentine's Day! ❤️</p>
+    </div>
+
+    <div class="main-content overlay">
         <div class="container">
             <h1>Will You Be My Valentine?</h1>
             <div class="buttons">
@@ -118,66 +177,11 @@
         </div>
     </div>
 
-    <div id="particles-js"></div>
+    <audio id="bgMusic" src="song.mp3" loop></audio> 
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
-        
-        const noButton = document.getElementById('noButton');
-        let moving = false;
-
-        function moveButton() {
-            if (moving) return; 
-
-            moving = true;
-            const screenWidth = window.innerWidth;
-            const screenHeight = window.innerHeight;
-
-           
-            const buttonWidth = noButton.offsetWidth;
-            const buttonHeight = noButton.offsetHeight;
-
-          
-            const direction = Math.floor(Math.random() * 4); 
-
-            let translateX = 0;
-            let translateY = 0;
-
-           
-            switch (direction) {
-                case 0: 
-                    translateY = -100;
-                    break;
-                case 1: 
-                    translateY = 100;
-                    break;
-                case 2:
-                    translateX = -100;
-                    break;
-                case 3: 
-                    translateX = 100;
-                    break;
-            }
-
-            
-            const newX = Math.max(0, Math.min(screenWidth - buttonWidth, noButton.offsetLeft + translateX));
-            const newY = Math.max(0, Math.min(screenHeight - buttonHeight, noButton.offsetTop + translateY));
-
-            
-            noButton.style.left = `${newX}px`;
-            noButton.style.top = `${newY}px`;
-
-           
-            setTimeout(() => {
-                moving = false;
-            }, 100); 
-        }
-
-        
-        noButton.addEventListener('mouseenter', moveButton);
-        noButton.addEventListener('click', moveButton);
-
         particlesJS("particles-js", {
             particles: {
                 number: {
@@ -197,8 +201,8 @@
                     },
                     image: {
                         src: "https://pics.clipartpng.com/midle/Red_Heart_PNG_Clipart-989.png",
-                        width: 100,
-                        height: 100
+                        width: 50,
+                        height: 50
                     }
                 },
                 opacity: {
@@ -238,6 +242,73 @@
                 }
             },
             retina_detect: true
+        });
+
+        function animateRizzLines() {
+            const lines = [
+                "Every day, I cannot believe how lucky I am",
+                "Amongst Billions and trillions of stars,",
+                "Over billions of years,",
+                "To be alive, and to get to spend this life with you"
+            ];
+
+            let i = 0;
+            const lineElements = [
+                document.getElementById('line1'),
+                document.getElementById('line2'),
+                document.getElementById('line3'),
+                document.getElementById('line4')
+            ];
+
+            function showLine() {
+                if (i < lines.length) {
+                    lineElements[i].textContent = lines[i];
+                    lineElements[i].style.opacity = 1;
+                    setTimeout(() => {
+                        lineElements[i].style.opacity = 0; 
+                        i++;
+                        setTimeout(showLine, 2000); 
+                    }, 2000);
+                } else {
+                    document.querySelector('.intro').classList.add('visible');
+                    setTimeout(() => {
+                        fadeOutIntroText();
+                    }, 5000);
+                }
+            }
+
+            showLine();
+        }
+
+        function fadeOutIntroText() {
+            const introText = document.getElementById('introText');
+            introText.style.transition = 'opacity 2s ease-out';
+            introText.style.opacity = 0; 
+            setTimeout(() => {
+                document.querySelector('.intro').style.display = 'none';
+                document.querySelector('.main-content').classList.add('visible');
+            }, 2000); 
+        }
+
+        function startIntro() {
+            document.querySelector('.start-screen').style.opacity = '0';
+            const bgMusic = document.getElementById('bgMusic');
+            bgMusic.volume = 0.5;
+            bgMusic.play();
+            setTimeout(() => {
+                document.querySelector('.start-screen').style.display = 'none';
+                document.querySelector('.rizz-lines').classList.add('visible');
+                animateRizzLines();
+            }, 1500);
+        }
+
+        const noButton = document.getElementById('noButton');
+        noButton.addEventListener('mouseenter', () => {
+            const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+            noButton.style.position = 'absolute';
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
         });
     </script>
 </body>
